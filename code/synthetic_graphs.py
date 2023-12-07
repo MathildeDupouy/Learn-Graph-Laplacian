@@ -185,13 +185,13 @@ def diffusion(G, diffusion_strength = 0.1, diffusion_steps = 10, value_range = [
         
     return G
 
-def create_graph_from_laplacian(L) :
+def create_graph_from_laplacian(L, node_start = 0) :
     G=nx.Graph()
     for i in range(len(L)) :
-        G.add_node(i)
+        G.add_node(node_start + i)
     for i in range(len(L)) :
         for j in range(i+1, len(L)) :
             if abs(L[i][j]) > 1e-2 :
-                G.add_edge(i, j)
-                G[i][j]['weight'] = -L[i][j]
+                G.add_edge(node_start + i, node_start + j)
+                G[node_start + i][node_start + j]['weight'] = -L[i][j]
     return G
