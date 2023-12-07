@@ -96,7 +96,7 @@ def signal_smoothness_on_graph(G):
     quadratic_form = np.dot(np.dot(u, L), u)
     return quadratic_form
 
-def plot_graph(G, value_range=[0,100], labels=True):
+def plot_graph(G, value_range=[0,100], labels=True, title=""):
     node_values = nx.get_node_attributes(G, 'value')
     node_colors = [node_values[node] for node in G.nodes()]
 
@@ -132,7 +132,7 @@ def plot_graph(G, value_range=[0,100], labels=True):
     sm.set_array([])
     cbar = plt.colorbar(sm, cax=cbar_ax)
     cbar.set_label('Signal amplitude')
-
+    ax.set_title(title)
     plt.show()
 
 def sample_signal_from_graph(G, num_samples = 5, sampling_noise_std = 0.2):
