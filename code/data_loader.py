@@ -41,8 +41,8 @@ class synthetic_data_gen:
     def create_random_graph(self):
         self.random_graph = nx.random_geometric_graph(self.num_vertices, 0.4)
         for u, v, d in self.random_graph.edges(data=True):
-            pos1 = np.array(self.random_graph.node[u]['pos'])
-            pos2 = np.array(self.random_graph.node[v]['pos'])
+            pos1 = np.array(self.random_graph.nodes[u]['pos'])
+            pos2 = np.array(self.random_graph.nodes[v]['pos'])
             d['weight'] = np.exp(-np.linalg.norm(pos1 - pos2) / (2 * 0.5 * 0.5))
         self.rg_normL = nx.normalized_laplacian_matrix(self.random_graph)
         return

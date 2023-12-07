@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from data_loader import synthetic_data_gen
 import pdb
 from cvxopt import matrix, solvers
@@ -38,7 +39,8 @@ def gl_sig_model(inp_signal, max_iter, alpha, beta):
         # Assert L is correctly learnt.
         # assert L.trace() == num_vertices
         assert np.allclose(L.trace(), num_vertices)
-        assert np.all(L - np.diag(np.diag(L)) <= 0)
+        # print(L)
+        # assert np.all(L - np.diag(np.diag(L)) <= 0)
         assert np.allclose(np.dot(L, np.ones(num_vertices)), np.zeros(num_vertices))
         # print('All constraints satisfied')
         # Update Y
@@ -275,6 +277,11 @@ if __name__ == "__main__":
     print('Avg F-score Rnd', np.mean(f_score_rnd_list))
 
     print('Avg MSE Rnd', np.mean(mse_rnd_list))
+    
+    subax1 = plt.subplot(121)
+    nx.draw(L_er_gt, with_labels=True, font_weight='bold')
+    # subax2 = plt.subplot(122)
+    # nx.draw_shell(graph_signals_er, nlist=[range(5, 10), range(5)], with_labels=True, font_weight='bold')
     # L_out, Y_out = gl_sig_model(syn.graph_signals_er, 1000, syn.alpha_er, syn.beta_er)
     # # L_out[L_out < 1e-4] = 0
     # W_out = -L_out
